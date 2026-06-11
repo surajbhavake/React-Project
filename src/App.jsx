@@ -24,8 +24,10 @@ function App() {
   function increment(){
     setCount(prevCount=> prevCount + 1)
     setIncrease(preIncrease => preIncrease + 1)
-    if(count > highest){
-    setHighest(count)
+    let newCount = count + 1 //here we write count + 1 instead of count because react takes time to
+    //update the state it first run the full funciton and then update the count  
+    if(newCount > highest){
+    setHighest(newCount)
   }
 
   }
