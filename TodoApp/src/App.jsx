@@ -26,8 +26,10 @@ function App() {
   }
     
    
-  function deleteTasks(index){
-    taskStore.pop(index)
+  function deleteTasks(indextoDelete){
+    setTaskStore(prevTask=>prevTask.filter((task,index)=>
+    index !== indextoDelete
+    ))
   }
 
   return (
