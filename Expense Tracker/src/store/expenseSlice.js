@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     expenses:[{
         expenseName : '',
-        amount : 0
+        amount : 0,
+        
     }]
 }
 
@@ -15,7 +16,8 @@ export const expenseSlice = createSlice({
         addExpenses:(state,action)=>{
             const addedExpense = {
                 expenseName : action.payload.expenseName,
-                amount : action.payload.amount
+                amount : action.payload.amount,
+                
             }
             state.expenses.push(addedExpense)
         },
@@ -26,14 +28,29 @@ export const expenseSlice = createSlice({
             ))
         },
 
-        handelExpense:(state,action)=>{
-            
-        }
+        handelUpdate:(state,action)=>{
+            state.expenses = state.expenses.map((expense,index)=>{
+                if(index === action.payload.editingIndex){
+                    return {
+                        expenseName : action.payload.expenseName,
+                        amount : action.payload.amount
+                    }
+                }
+                return expense;     
+        })
+        },
+       
 
 
     }
 
 })
 
-export const {addExpenses, deleteExpense} = expenseSlice.actions;
+ export const selectTotalExpense = (state) =>{
+    return state.expense.expenses.reduce((sum,current)=>{
+        return sum + current.amount;
+    },0)
+        }
+
+export const {addExpenses, deleteExpense, handelUpdate} = expenseSlice.actions;
 export default expenseSlice.reducer

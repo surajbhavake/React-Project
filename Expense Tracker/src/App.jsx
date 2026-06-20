@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { addExpenses,deleteExpense } from './store/expenseSlice'
+import { addExpenses,deleteExpense,handelUpdate, selectTotalExpense } from './store/expenseSlice'
 import {store} from './store/store'
 
 function App() {
@@ -13,8 +13,9 @@ function App() {
   const expense = useSelector((state)=>state.expense.expenses)
 
   const dispatch = useDispatch()
+  const Total = useSelector(selectTotalExpense);
 
-  let Total = 0;
+ 
   let updateExpsense = '';
   
 
@@ -26,7 +27,7 @@ function App() {
     
     else{
     // setExpense(prev=>[{expenseName,amount:parseInt(amount)},...prev])
-    dispatch(addExpenses({ expenseName, amount: parseInt(amount) }) )
+    dispatch(addExpenses({ expenseName, amount: parseInt(amount),category }) )
     setAmount('')
     setExpenseName('')
     setError('')
@@ -37,9 +38,9 @@ function App() {
 
   }
 
-  Total = expense.reduce((sum,current)=>{
-      return sum + current.amount
-    },0)
+  // Total = expense.reduce((sum,current)=>{
+  //     return sum + current.amount
+  //   },0)
 
 
   // function handelDelete(indexToDelete){
@@ -49,24 +50,27 @@ function App() {
     
   // }
 
-  function handelUpdate(indextoUpdate){
+  function handelUpdateExpense(indextoUpdate){
     setEditingIndex(indextoUpdate)
+
+    
     setAmount(expense[indextoUpdate].amount)
     setExpenseName(expense[indextoUpdate].expenseName)
   }
 
   function updateExpenses(){
-    updateExpsense = expense.map((expense,index)=>{
-      if(index===editingIndex){
-        return {expenseName , amount :parseInt(amount) }
-      }
-      else{
-        return expense
-      }
+    // updateExpsense = expense.map((expense,index)=>{
+    //   if(index===editingIndex){
+    //     return {expenseName , amount :parseInt(amount) }
+    //   }
+    //   else{
+    //     return expense
+    //   }
       
-    })
+    // })
 
-    setExpense(updateExpsense)
+    // setExpense(updateExpsense)
+    dispatch(handelUpdate({expenseName, amount: parseInt(amount), editingIndex}))
     setAmount('')
     setExpenseName('')
     setEditingIndex(null)
@@ -124,7 +128,7 @@ function App() {
            </div>
            <div>
             <button
-            onClick={()=>handelUpdate(index)}
+            onClick={()=>handelUpdateExpense(index)}
             >Edit</button>
            </div>
         </div>
