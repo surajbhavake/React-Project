@@ -27,7 +27,7 @@ function App() {
     
     else{
     // setExpense(prev=>[{expenseName,amount:parseInt(amount)},...prev])
-    dispatch(addExpenses({ expenseName, amount: parseInt(amount),category }) )
+    dispatch(addExpenses({ expenseName, amount: parseInt(amount), }) )
     setAmount('')
     setExpenseName('')
     setError('')
