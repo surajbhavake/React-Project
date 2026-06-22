@@ -13,7 +13,11 @@ export const habitsSlice = createSlice({
     initialState,
     reducers:{
         addHabit:(state,action)=>{
-
+            const addHabit = {
+                habitName : action.payload.habit,
+                CompletionStatus : action.payload.CompletionStatus,
+            }
+            state.habits.push(addHabit)
         },
         toggleHabit:(state,action)=>{
 
@@ -24,3 +28,6 @@ export const habitsSlice = createSlice({
     }
 
 })
+
+export const {addHabit,toggleHabit,deleteHabit} = habitsSlice.actions;
+export default habitsSlice.reducer
