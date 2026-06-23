@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import habitReducer from './habitSlice';
+import habitSlice from './HabitsSlice';
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
-        habits : habitSlice.reducer
+        habits : habitSlice
     }
 })
