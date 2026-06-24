@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { addHabit,toggleHabit,deleteHabit,CompletedCount,updateHabit } from './store/HabitsSlice'
 
@@ -19,6 +19,19 @@ function App() {
     setHabit(habits[indexToUpdate].habitName)
     setEditingIndex(indexToUpdate)
   }
+  function updateChanges(){
+    dispatch(updateHabit({habit,CompletionStatus:false,index:editingIndex}))
+    setHabit('')
+  }
+
+
+  useEffect(()=>{
+    localStorage.setItem('habits',JSON.stringify(habits))
+  },[habits])
+
+  // function StoreData(){
+  //   localStorage.setItem('habits',JSON.stringify(habits))
+  // }
 
   return (
     <div>
@@ -39,7 +52,7 @@ function App() {
         
         <div>
           <button
-        onClick={()=>dispatch(updateHabit({habit,CompletionStatus:false,index:editingIndex}))}
+        onClick={updateChanges}
         >Update</button>
         </div>
 
@@ -65,6 +78,14 @@ function App() {
 
         
       </div>
+
+      {/* <div>
+        <br/>
+
+        <button
+        onClick={StoreData}
+        >Save</button>
+      </div> */}
     </div>
   )
 }

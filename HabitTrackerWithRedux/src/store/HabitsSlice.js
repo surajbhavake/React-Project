@@ -1,11 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
+
+
+const savedHabit = localStorage.getItem('habits')
+
+// If savedHabits has data (which counts as "true"), 
+// it runs JSON.parse(savedHabits). Otherwise (if it counts as "false"), it runs []
 const initialState = {
-    habits :[
-        {
-            habitName :'Nothing',
-            CompletionStatus : false
-        }
-    ]
+   habits : savedHabit ? JSON.parse(savedHabit) : []
 }
 
 export const habitsSlice = createSlice({
