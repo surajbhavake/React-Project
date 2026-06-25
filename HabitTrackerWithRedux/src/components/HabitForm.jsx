@@ -3,8 +3,6 @@ import React from 'react'
 function HabitForm({habitName,onNameChange,onSubmit,isEditing}) {
   return (
     <div>
-      <h1>Habit Form</h1>
-
       <div className='flex gap-2 items-center'>
         <input type="text"
         placeholder='Enter your habit'
