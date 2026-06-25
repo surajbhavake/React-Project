@@ -6,7 +6,7 @@ const savedHabit = localStorage.getItem('habits')
 // If savedHabits has data (which counts as "true"), 
 // it runs JSON.parse(savedHabits). Otherwise (if it counts as "false"), it runs []
 const initialState = {
-   habits : savedHabit ? JSON.parse(savedHabit) : []
+   habits : savedHabit ? JSON.parse(savedHabit) : [],
 }
 
 export const habitsSlice = createSlice({
@@ -15,6 +15,7 @@ export const habitsSlice = createSlice({
     reducers:{
         addHabit:(state,action)=>{
             const addHabit = {
+                id : Date.now(),
                 habitName : action.payload.habit,
                 CompletionStatus : action.payload.CompletionStatus,
             }
@@ -22,7 +23,10 @@ export const habitsSlice = createSlice({
         },
         toggleHabit:(state,action)=>{
 
-            const indexToToggle = action.payload.index
+            const HabitToToggle = action.payload
+            const indexToToggle = state.habits.findIndex((habit)=>(
+                habit.id === HabitToToggle
+            ))
             // const updateToggle = state.habits.map((habit,index)=>{
             //     if(index === indexToToggle){
             //         return {...habit,CompletionStatus:!habit.CompletionStatus}
@@ -35,13 +39,17 @@ export const habitsSlice = createSlice({
             state.habits[indexToToggle].CompletionStatus = !state.habits[indexToToggle].CompletionStatus
         },
         deleteHabit:(state,action)=>{
-            const indexToDelete = action.payload.index
+            const HabitToDelete = action.payload
             state.habits = state.habits.filter((habit,index)=>(
-                index !== indexToDelete
+                habit.id !== HabitToDelete
             ))
         },
         updateHabit:(state,action)=>{
-            const indexToUpdated = action.payload.index
+            const HabitToUpdated = action.payload.id
+
+            const indexToUpdated = state.habits.findIndex((habit)=>(
+                habit.id === HabitToUpdated
+            ))
 
             // const updateChanges = state.habits.map((habit,index)=>{
             //     if(index === indexToUpdated){
@@ -53,7 +61,7 @@ export const habitsSlice = createSlice({
             // state.habits = updateChanges
 
             state.habits[indexToUpdated].habitName = action.payload.habit;
-            state.habits[indexToUpdated].CompletionStatus = action.payload.CompletionStatus;
+            
 
             
         }

@@ -5,24 +5,63 @@ import { addHabit,toggleHabit,deleteHabit,CompletedCount,updateHabit } from './s
 
 function App() {
   const[habit,setHabit]=useState('')
+  const[filter,setFilter] = useState('')
+
 
   const dispatch = useDispatch()
   const habits = useSelector((state)=>state.habits.habits)
   const completedCount = useSelector(CompletedCount)
   const[editingIndex,setEditingIndex] = useState(null)
-
+  
   function handelAdd(){
     dispatch(addHabit({habit,CompletionStatus : false}))
     setHabit('')
   }
-  function handelUpdate(indexToUpdate){
+  function handelUpdate(habitId){
+  const indexToUpdate = habits.findIndex((habit)=>(
+    habit.id === habitId
+  ))
+
     setHabit(habits[indexToUpdate].habitName)
-    setEditingIndex(indexToUpdate)
+    setEditingIndex(habitId)
   }
   function updateChanges(){
-    dispatch(updateHabit({habit,CompletionStatus:false,index:editingIndex}))
+    dispatch(updateHabit({habit,id:editingIndex}))
     setHabit('')
+    setEditingIndex(null)
   }
+
+
+ let filteredHabits = habits;
+
+if (filter === "completed") {
+  filteredHabits = habits.filter(
+    habit => habit.CompletionStatus
+  );
+}
+
+if (filter === "pending") {
+  filteredHabits = habits.filter(
+    habit => !habit.CompletionStatus
+  );
+}
+  
+  // const filterHabits = ()=>{
+  //   if(filter === 'all'){
+  //     return habits
+  //   }
+
+  //   else if(filter === 'pending'){
+  //     return habits.filter((habit)=>(
+  //       habit.CompletionStatus !== true
+  //     ))
+  //   }
+  //   else if(filter === 'completed'){
+  //     return habits.filter((habit)=>(
+  //       habit.CompletionStatus === true
+  //     ))
+  //   }
+  // }
 
 
   useEffect(()=>{
@@ -36,6 +75,16 @@ function App() {
   return (
     <div>
       <div>
+      <div>
+        <button
+        onClick={()=>setFilter('all')}
+        >All</button>
+        <button
+        onClick={()=>setFilter('pending')}>Pending</button>
+        <button
+        onClick={()=>setFilter('completed')}
+        >Completed</button>
+      </div>
 
         <div className="div"><p>{`Completed: ${completedCount}/${habits.length}`}</p></div>
         <label>Habit : </label>
@@ -44,32 +93,27 @@ function App() {
         value={habit}
         onChange={(e)=>setHabit(e.currentTarget.value)}
         />
-        <div>
-          <button
-          onClick={handelAdd}
-          >Add</button>
-        </div>
-        
-        <div>
-          <button
-        onClick={updateChanges}
-        >Update</button>
-        </div>
+
+        <br/>
+
+        {editingIndex === null ? (<button onClick={handelAdd}>Add</button>):
+         (<button onClick={updateChanges}>update</button>) }
+      
 
         <div >
           
-          {habits.map((habit,index)=>(
-            <div key={index}>
+          {filteredHabits.map((habit,index)=>(
+            <div key={habit.id}>
               <p>{`Habits: ${habit.habitName}`}</p>
 
               <input type="checkbox"
               checked={habit.CompletionStatus}
-              onChange={()=>dispatch(toggleHabit({index}))}
+              onChange={()=>dispatch(toggleHabit(habit.id))}
               />
 
               <div>
-                <button onClick={() => dispatch(deleteHabit({index}))}>Delete</button><br/>
-                <button onClick={()=>handelUpdate(index)}>Edit</button>
+                <button onClick={() => dispatch(deleteHabit(habit.id))}>Delete</button><br/>
+                <button onClick={()=>handelUpdate(habit.id)}>Edit</button>
               </div>
 
             </div>
@@ -77,6 +121,10 @@ function App() {
         </div>
 
         
+      </div>
+
+      <div>
+        {}
       </div>
 
       {/* <div>
