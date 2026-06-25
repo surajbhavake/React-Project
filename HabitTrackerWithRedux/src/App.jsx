@@ -1,11 +1,17 @@
 import React, { useState,useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { addHabit,toggleHabit,deleteHabit,CompletedCount,updateHabit } from './store/HabitsSlice'
+import {Routes,Route} from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import Settings from './pages/Settings'
+import Statistics from './pages/Statistics'
+import About from './pages/About'
+import Navbar from "./components/Navbar";
 
 
 function App() {
   const[habit,setHabit]=useState('')
-  const[filter,setFilter] = useState('')
+  const[filter,setFilter] = useState('all')
 
 
   const dispatch = useDispatch()
@@ -14,9 +20,15 @@ function App() {
   const[editingIndex,setEditingIndex] = useState(null)
   
   function handelAdd(){
+
+    if(habit.trim()===''){
+      alert('Please enter a habit')
+      
+    }
+    else {
     dispatch(addHabit({habit,CompletionStatus : false}))
     setHabit('')
-  }
+  }}
   function handelUpdate(habitId){
   const indexToUpdate = habits.findIndex((habit)=>(
     habit.id === habitId
@@ -73,6 +85,19 @@ if (filter === "pending") {
   // }
 
   return (
+
+    <>
+    <Navbar/>
+    <Routes>
+      <Route path='/' element={<Dashboard/>}/>
+      <Route path='/settings' element={<Settings/>}/>
+      <Route path='/statistics' element={<Statistics/>}/>
+      <Route path='/about' element={<About/>}/>
+    </Routes>
+
+
+
+
     <div>
       <div>
       <div>
@@ -135,6 +160,9 @@ if (filter === "pending") {
         >Save</button>
       </div> */}
     </div>
+  )
+
+  </>
   )
 }
 
