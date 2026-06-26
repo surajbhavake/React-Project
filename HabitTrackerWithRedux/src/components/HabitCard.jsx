@@ -13,7 +13,7 @@ export default function HabitCard({habit,onToggle,onDelete,onEdit}) {
         />
 
         <span className={`text-lg ${habit.CompletionStatus ? 'line-through text-gray-400' : 'text-gray-800'}`}
-        >{habit.habitName}fsdfsf</span>
+        >{habit.habitName}</span>
       </div>
 
       <div className='flex gap-2 '>

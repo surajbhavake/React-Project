@@ -19,24 +19,26 @@ function App() {
   const completedCount = useSelector(CompletedCount)
   const[editingIndex,setEditingIndex] = useState(null)
   
-  function handelAdd(){
+  // function handelAdd(){
 
-    if(habit.trim()===''){
-      alert('Please enter a habit')
+  //   if(habit.trim()===''){
+  //     alert('Please enter a habit')
       
-    }
-    else {
-    dispatch(addHabit({habit,CompletionStatus : false}))
-    setHabit('')
-  }}
-  function handelUpdate(habitId){
-  const indexToUpdate = habits.findIndex((habit)=>(
-    habit.id === habitId
-  ))
+  //   }
+  //   else {
+  //   dispatch(addHabit({habit,CompletionStatus : false}))
+  //   setHabit('')
+  // }}
+  // function handelUpdate(habitId){
+  // const indexToUpdate = habits.findIndex((habit)=>(
+  //   habit.id === habitId
+  // ))
 
-    setHabit(habits[indexToUpdate].habitName)
-    setEditingIndex(habitId)
-  }
+  //   setHabit(habits[indexToUpdate].habitName)
+  //   setEditingIndex(habitId)
+  // }
+
+
   function updateChanges(){
     dispatch(updateHabit({habit,id:editingIndex}))
     setHabit('')
@@ -44,19 +46,19 @@ function App() {
   }
 
 
- let filteredHabits = habits;
+//  let filteredHabits = habits;
 
-if (filter === "completed") {
-  filteredHabits = habits.filter(
-    habit => habit.CompletionStatus
-  );
-}
+// if (filter === "completed") {
+//   filteredHabits = habits.filter(
+//     habit => habit.CompletionStatus
+//   );
+// }
 
-if (filter === "pending") {
-  filteredHabits = habits.filter(
-    habit => !habit.CompletionStatus
-  );
-}
+// if (filter === "pending") {
+//   filteredHabits = habits.filter(
+//     habit => !habit.CompletionStatus
+//   );
+// }
   
   // const filterHabits = ()=>{
   //   if(filter === 'all'){
@@ -98,7 +100,7 @@ if (filter === "pending") {
 
 
 
-    <div>
+    {/* <div>
       <div>
       <div>
         <button
@@ -109,25 +111,25 @@ if (filter === "pending") {
         <button
         onClick={()=>setFilter('completed')}
         >Completed</button>
-      </div>
+      </div> */}
 
-        <div className="div"><p>{`Completed: ${completedCount}/${habits.length}`}</p></div>
-        <label>Habit : </label>
+        {/* <div className="div"><p>{`Completed: ${completedCount}/${habits.length}`}</p></div> */}
+        {/* <label>Habit : </label>
         <input type="text"
         placeholder='Enter your habit'
         value={habit}
         onChange={(e)=>setHabit(e.currentTarget.value)}
-        />
+        /> */}
 
         <br/>
 
-        {editingIndex === null ? (<button onClick={handelAdd}>Add</button>):
+        {/* {editingIndex === null ? (<button onClick={handelAdd}>Add</button>):
          (<button onClick={updateChanges}>update</button>) }
-      
+       */}
 
         <div >
           
-          {filteredHabits.map((habit,index)=>(
+          {/* {filteredHabits.map((habit,index)=>(
             <div key={habit.id}>
               <p>{`Habits: ${habit.habitName}`}</p>
 
@@ -142,11 +144,11 @@ if (filter === "pending") {
               </div>
 
             </div>
-          ))}
-        </div>
+          ))} */}
+        {/* </div>
 
         
-      </div>
+      {/* </div>
 
       <div>
         {}
@@ -159,8 +161,8 @@ if (filter === "pending") {
         onClick={StoreData}
         >Save</button>
       </div> */}
-    </div>
-  )
+    </div>  
+  
 
   </>
   )
