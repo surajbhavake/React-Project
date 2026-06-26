@@ -15,7 +15,7 @@ function Statistics() {
     <div className='p-6  max-w-2xl mx-auto'>
       <h1  className='text-3xl font-bold text-gray-800 mb-6 '>Statistics</h1>
 
-      <div className="gird grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="p-4 bg-white rounded-xl shadow-sm border">
           <p className="text-3xl font-bold text-blue-600">{total}</p>
           <p className="text-gray-600">Total Habits</p>

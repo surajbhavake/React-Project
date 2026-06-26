@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HabitForm from '../components/HabitForm'
 import HabitCard from '../components/HabitCard'
 import ProgressCard from '../components/ProgressCard'
@@ -17,11 +17,20 @@ function Dashboard() {
 
 
 
+  
 
 
   const dispatch = useDispatch()
   const habits = useSelector((state)=>state.habits.habits)
   const completedCount = useSelector(CompletedCount)
+
+
+
+
+  useEffect(()=>{
+    localStorage.setItem('habits',JSON.stringify(habits))
+  },[habits])
+
 
   let displayHabits = habits
   if(filter === 'completed'){

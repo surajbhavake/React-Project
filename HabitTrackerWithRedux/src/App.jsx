@@ -78,9 +78,9 @@ function App() {
   // }
 
 
-  useEffect(()=>{
-    localStorage.setItem('habits',JSON.stringify(habits))
-  },[habits])
+  // useEffect(()=>{
+  //   localStorage.setItem('habits',JSON.stringify(habits))
+  // },[habits])
 
   // function StoreData(){
   //   localStorage.setItem('habits',JSON.stringify(habits))
