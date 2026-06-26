@@ -26,12 +26,12 @@ function Dashboard() {
   let displayHabits = habits
   if(filter === 'completed'){
     displayHabits = habits.filter((h)=>(
-      h.CompletedCount
+      h.CompletionStatus
     ))
   }
   if(filter === 'pending'){
     displayHabits = habits.filter((h)=>(
-      !h.CompletedCount
+      !h.CompletionStatus
     ))
   }
 
@@ -72,7 +72,7 @@ function Dashboard() {
       <h1>Dashboard</h1>
 
       <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm}/>
-      <FilterButtonss/>
+      <FilterButtons currentFilter ={filter} onFilterChange = {setFilter}/>
 
       <ProgressCard
       completed = {completedCount}

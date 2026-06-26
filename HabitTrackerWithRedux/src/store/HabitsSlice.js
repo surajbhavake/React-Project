@@ -71,9 +71,13 @@ export const habitsSlice = createSlice({
 
 export const CompletedCount = (state) => {
     return state.habits.habits.filter((habit)=>(
-        habit.CompletionStatus === true
+        habit.CompletionStatus
     )).length
-}   
+}  
+
+export const TotalHabits = (state) =>(state.habits.habits.length)
+
+
     
 
 export const {addHabit,toggleHabit,deleteHabit,updateHabit} = habitsSlice.actions;
